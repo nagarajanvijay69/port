@@ -1,0 +1,142 @@
+{
+  "placeholderImages": [
+    {
+      "id": "user-alex",
+      "description": "User avatar for Alex",
+      "imageUrl": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzIzNjE1NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user-sam",
+      "description": "User avatar for Sam",
+      "imageUrl": "https://images.unsplash.com/photo-1711645169736-53327e726205?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3b21hbiUyMHNtaWxpbmd8ZW58MHx8fHwxNzcyMzA1NzY5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman smiling"
+    },
+    {
+      "id": "user-jamie",
+      "description": "User avatar for Jamie",
+      "imageUrl": "https://images.unsplash.com/photo-1576110598658-096ae24cdb97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtYW4lMjBnbGFzc2VzfGVufDB8fHx8MTc3MjMzMTI2OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man glasses"
+    },
+    {
+      "id": "user-taylor",
+      "description": "User avatar for Taylor",
+      "imageUrl": "https://images.unsplash.com/photo-1737642872807-9669a744de5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwb3V0ZG9vcnN8ZW58MHx8fHwxNzcyMzY3NTQ5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person outdoors"
+    },
+    {
+      "id": "user-casey",
+      "description": "User avatar for Casey",
+      "imageUrl": "https://images.unsplash.com/photo-1495395226200-8fbf6b720b8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx3b21hbiUyMG5hdHVyZXxlbnwwfHx8fDE3NzIzMzI0Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman nature"
+    },
+    {
+      "id": "user-jordan",
+      "description": "User avatar for Jordan",
+      "imageUrl": "https://images.unsplash.com/photo-1635650805015-2fa50682873a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYW4lMjB1cmJhbnxlbnwwfHx8fDE3NzIzODcwMTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man urban"
+    },
+    {
+      "id": "user-drew",
+      "description": "User avatar for Drew",
+      "imageUrl": "https://images.unsplash.com/photo-1484863137850-59afcfe05386?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc3MjMwODI2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person smiling"
+    },
+    {
+      "id": "user-reese",
+      "description": "User avatar for Reese",
+      "imageUrl": "https://images.unsplash.com/photo-1592621385612-4d7129426394?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MjI5NjAwNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "moment-1",
+      "description": "Moment post with a landscape view",
+      "imageUrl": "https://images.unsplash.com/39/wdXqHcTwSTmLuKOGz92L_Landscape.jpg?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxuYXR1cmUlMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzcyMzYzMjMzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nature landscape"
+    },
+    {
+      "id": "moment-2",
+      "description": "Moment post with city architecture",
+      "imageUrl": "https://images.unsplash.com/photo-1617381519460-d87050ddeb92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5JTIwYXJjaGl0ZWN0dXJlfGVufDB8fHx8MTc3MjM2MDgxNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city architecture"
+    },
+    {
+      "id": "moment-3",
+      "description": "Moment post with food",
+      "imageUrl": "https://images.unsplash.com/photo-1719461306478-67d7612ba835?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmb29kJTIwZGVsaWNpb3VzfGVufDB8fHx8MTc3MjM4NzAxNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "food delicious"
+    },
+    {
+      "id": "moment-4",
+      "description": "Moment post with a pet",
+      "imageUrl": "https://images.unsplash.com/photo-1535241749838-299277b6305f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjdXRlJTIwYW5pbWFsfGVufDB8fHx8MTc3MjM4NzAxNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cute animal"
+    },
+    {
+      "id": "my-moment-beach",
+      "description": "A user's moment post of a beach sunset",
+      "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723a9ce6890?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiZWFjaCUyMHN1bnNldHxlbnwwfHx8fDE3NzMyMjg0MjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beach sunset"
+    },
+    {
+      "id": "my-moment-coffee",
+      "description": "A user's moment post of coffee art",
+      "imageUrl": "https://images.unsplash.com/photo-1572442388796-11668a653434?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2ZmZWUlMjBhcnR8ZW58MHx8fHwxNzcyMzA3MDU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coffee art"
+    },
+    {
+      "id": "shop-pizza-cover",
+      "description": "Cover image for a pizza place",
+      "imageUrl": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwaXp6YSUyMHJlc3RhdXJhbnR8ZW58MHx8fHwxNzcyOTQ5MjA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pizza restaurant"
+    },
+    {
+      "id": "shop-burger-cover",
+      "description": "Cover image for a burger joint",
+      "imageUrl": "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXJnZXIlMjBzaG9wfGVufDB8fHx8MTc3Mjk0OTQxMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "burger shop"
+    },
+    {
+      "id": "shop-sushi-cover",
+      "description": "Cover image for a sushi restaurant",
+      "imageUrl": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdXNoaSUyMHJlc3RhdXJhbnR8ZW58MHx8fHwxNzcyOTQ5NDg2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sushi restaurant"
+    },
+    {
+      "id": "shop-grocery-cover",
+      "description": "Cover image for a grocery store",
+      "imageUrl": "https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmb29kJTIwbWFya2V0fGVufDB8fHx8MTc3Mjk0OTU0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "food market"
+    },
+    {
+      "id": "product-pizza-margherita",
+      "description": "Image of a margherita pizza",
+      "imageUrl": "https://images.unsplash.com/photo-1598021680133-eb3a820432a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYXJnaGVyaXRhJTIwcGl6emF8ZW58MHx8fHwxNzcyOTQ5NjMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "margherita pizza"
+    },
+    {
+      "id": "product-pizza-pepperoni",
+      "description": "Image of a pepperoni pizza",
+      "imageUrl": "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXBwZXJvbmklMjBwaXp6YXxlbnwwfHx8fDE3NzI5NDk2NjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pepperoni pizza"
+    },
+    {
+      "id": "product-burger-classic",
+      "description": "Image of a classic burger",
+      "imageUrl": "https://images.unsplash.com/photo-1550547660-d9450f859349?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbGFzc2ljJTIwYnVyZ2VyfGVufDB8fHx8MTc3Mjk0OTY5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "classic burger"
+    },
+    {
+      "id": "product-burger-cheese",
+      "description": "Image of a cheeseburger",
+      "imageUrl": "https://images.unsplash.com/photo-1606131731446-5568d87113aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaGVlc2VidXJnZXJ8ZW58MHx8fHwxNzcyOTQ5NzIyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cheeseburger"
+    },
+    {
+      "id": "map-view",
+      "description": "A map view for order tracking",
+      "imageUrl": "https://images.unsplash.com/photo-1594951989172-2330a1fb886d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXR5JTIwbWFwJTIwdmlld3xlbnwwfHx8fDE3NzMyMjc4ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    }
+  ]
+}

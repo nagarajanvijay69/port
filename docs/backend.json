@@ -1,0 +1,563 @@
+{
+  "entities": {
+    "Shop": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Shop",
+      "type": "object",
+      "description": "Represents a registered shop or merchant on the platform where users can browse products and place orders.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Shop entity."
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "Reference to the User who owns and manages this shop. (Relationship: User 1:N Shop)"
+        },
+        "name": {
+          "type": "string",
+          "description": "The official name of the shop."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description or motto of the shop."
+        },
+        "addressStreet": {
+          "type": "string",
+          "description": "The street address of the shop."
+        },
+        "addressCity": {
+          "type": "string",
+          "description": "The city where the shop is located."
+        },
+        "addressState": {
+          "type": "string",
+          "description": "The state or province where the shop is located."
+        },
+        "addressPostalCode": {
+          "type": "string",
+          "description": "The postal code of the shop's address."
+        },
+        "addressCountry": {
+          "type": "string",
+          "description": "The country where the shop is located."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The contact phone number for the shop."
+        },
+        "email": {
+          "type": "string",
+          "description": "The contact email address for the shop.",
+          "format": "email"
+        },
+        "logoUrl": {
+          "type": "string",
+          "description": "URL to the shop's logo image.",
+          "format": "uri"
+        },
+        "coverImageUrl": {
+          "type": "string",
+          "description": "URL to a cover image for the shop's profile.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The primary category of the shop (e.g., 'Restaurant', 'Grocery', 'Electronics')."
+        },
+        "openingHours": {
+          "type": "array",
+          "description": "An array of strings describing the shop's opening hours (e.g., 'Mon-Fri 9AM-5PM', 'Sat 10AM-2PM').",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "The current operational status of the shop (e.g., 'Open', 'Closed', 'Pending Approval', 'Disabled')."
+        },
+        "isVerified": {
+          "type": "boolean",
+          "description": "Indicates whether the shop has been verified by the platform."
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Geographical latitude of the shop for location-based services."
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Geographical longitude of the shop for location-based services."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the shop was registered.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the shop's information was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "name",
+        "addressStreet",
+        "addressCity",
+        "addressState",
+        "addressPostalCode",
+        "addressCountry",
+        "phone",
+        "category",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents an individual item or service offered by a shop.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Product entity."
+        },
+        "shopId": {
+          "type": "string",
+          "description": "Reference to the Shop that offers this product. (Relationship: Shop 1:N Product)"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the product."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the product."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to an image of the product.",
+          "format": "uri"
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the product."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency in which the price is denominated (e.g., 'USD', 'INR')."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the product belongs to (e.g., 'Beverages', 'Appetizers', 'Electronics')."
+        },
+        "isAvailable": {
+          "type": "boolean",
+          "description": "Indicates whether the product is currently available for purchase."
+        },
+        "stockQuantity": {
+          "type": "number",
+          "description": "The current quantity of the product in stock, if inventory tracking is enabled."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the product was added.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the product's information was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "shopId",
+        "name",
+        "price",
+        "currency",
+        "isAvailable",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserAddress": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserAddress",
+      "type": "object",
+      "description": "Represents a saved delivery or billing address for a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserAddress entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User who owns this address. (Relationship: User 1:N UserAddress)"
+        },
+        "label": {
+          "type": "string",
+          "description": "A user-defined label for the address (e.g., 'Home', 'Work', 'Mom's House')."
+        },
+        "street": {
+          "type": "string",
+          "description": "The street address."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city of the address."
+        },
+        "state": {
+          "type": "string",
+          "description": "The state or province of the address."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of the address."
+        },
+        "country": {
+          "type": "string",
+          "description": "The country of the address."
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Indicates if this is the user's default delivery address."
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Geographical latitude of the address."
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Geographical longitude of the address."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "label",
+        "street",
+        "city",
+        "state",
+        "postalCode",
+        "country",
+        "isDefault"
+      ]
+    },
+    "Order": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Order",
+      "type": "object",
+      "description": "Represents a customer's order placed from a shop.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Order entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User who placed the order. (Relationship: User 1:N Order)"
+        },
+        "shopId": {
+          "type": "string",
+          "description": "Reference to the Shop from which the order was placed. (Relationship: Shop 1:N Order)"
+        },
+        "orderItemIds": {
+          "type": "array",
+          "description": "References to the OrderItem entities that comprise this order. (Relationship: Order 1:N OrderItem)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deliveryAddressId": {
+          "type": "string",
+          "description": "Reference to the UserAddress entity for the delivery location. (Relationship: UserAddress 1:N Order)"
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "The total monetary amount of the order, including delivery fees and taxes."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency of the total amount."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the order (e.g., 'Pending', 'Confirmed', 'Preparing', 'Out for Delivery', 'Delivered', 'Cancelled')."
+        },
+        "deliveryFee": {
+          "type": "number",
+          "description": "The fee charged for delivering the order."
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "The method used for payment (e.g., 'Credit Card', 'UPI', 'Cash on Delivery')."
+        },
+        "paymentStatus": {
+          "type": "string",
+          "description": "The status of the payment for the order (e.g., 'Paid', 'Pending', 'Refunded')."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Any special instructions or notes provided by the user for the order."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the order was placed.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the order status or details were last updated.",
+          "format": "date-time"
+        },
+        "estimatedDeliveryTime": {
+          "type": "string",
+          "description": "The estimated time for the order to be delivered.",
+          "format": "date-time"
+        },
+        "deliveryAgentId": {
+          "type": "string",
+          "description": "Reference to the DeliveryAgent entity responsible for this order. (Relationship: DeliveryAgent 1:N Order)"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "shopId",
+        "orderItemIds",
+        "deliveryAddressId",
+        "totalAmount",
+        "currency",
+        "status",
+        "paymentMethod",
+        "paymentStatus",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "OrderItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "OrderItem",
+      "type": "object",
+      "description": "Represents a single item within an order, capturing its state at the time of order placement.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the OrderItem entity."
+        },
+        "orderId": {
+          "type": "string",
+          "description": "Reference to the Order this item belongs to. (Relationship: Order 1:N OrderItem)"
+        },
+        "productId": {
+          "type": "string",
+          "description": "Reference to the Product that was ordered. (Relationship: Product 1:N OrderItem)"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the product ordered."
+        },
+        "priceAtOrder": {
+          "type": "number",
+          "description": "The price of the product at the time the order was placed (a snapshot price)."
+        },
+        "itemNameAtOrder": {
+          "type": "string",
+          "description": "The name of the product at the time the order was placed (a snapshot)."
+        },
+        "itemImageUrlAtOrder": {
+          "type": "string",
+          "description": "URL to the product's image at the time the order was placed (a snapshot).",
+          "format": "uri"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency of the priceAtOrder (a snapshot)."
+        }
+      },
+      "required": [
+        "id",
+        "orderId",
+        "productId",
+        "quantity",
+        "priceAtOrder",
+        "itemNameAtOrder",
+        "currency"
+      ]
+    },
+    "ShopReview": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ShopReview",
+      "type": "object",
+      "description": "Represents a user's review and rating for a specific shop.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ShopReview entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User who submitted the review. (Relationship: User 1:N ShopReview)"
+        },
+        "shopId": {
+          "type": "string",
+          "description": "Reference to the Shop being reviewed. (Relationship: Shop 1:N ShopReview)"
+        },
+        "rating": {
+          "type": "number",
+          "description": "The rating given to the shop (e.g., 1 to 5 stars)."
+        },
+        "comment": {
+          "type": "string",
+          "description": "The textual comment or feedback provided by the user."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the review was submitted.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the review was last updated (e.g., edited by the user).",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "shopId",
+        "rating",
+        "comment",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/shops/{shopId}",
+        "definition": {
+          "entityName": "Shop",
+          "schema": {
+            "$ref": "#/backend/entities/Shop"
+          },
+          "description": "Top-level collection for all registered shops. Publicly readable for discovery. Shop owners (identified by `ownerId`) can manage their own shop profiles. Includes `ownerId` for authorization independence.",
+          "params": [
+            {
+              "name": "shopId",
+              "description": "The unique identifier for the Shop."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/shops/{shopId}/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Subcollection for products offered by a specific shop. Publicly readable for browsing. Shop owners can manage their products. Includes denormalized `shopOwnerId` (from parent Shop) for authorization independence to allow product management without `get()` calls.",
+          "params": [
+            {
+              "name": "shopId",
+              "description": "The unique identifier of the parent Shop."
+            },
+            {
+              "name": "productId",
+              "description": "The unique identifier for the Product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/addresses/{addressId}",
+        "definition": {
+          "entityName": "UserAddress",
+          "schema": {
+            "$ref": "#/backend/entities/UserAddress"
+          },
+          "description": "User-specific subcollection for saving delivery or billing addresses. Strictly private, only accessible by the `userId` identified in the path and document. Includes `userId` for authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the User who owns this address."
+            },
+            {
+              "name": "addressId",
+              "description": "The unique identifier for the UserAddress."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/orders/{orderId}",
+        "definition": {
+          "entityName": "Order",
+          "schema": {
+            "$ref": "#/backend/entities/Order"
+          },
+          "description": "Top-level collection for all orders placed on the platform. Accessible by both the `userId` (customer) who placed it and the `shopOwnerId` (denormalized from the associated Shop) whose shop fulfilled it. Includes denormalized `shopOwnerId` for authorization independence, allowing both customer and shop owner to query and manage their respective orders without `get()` calls.",
+          "params": [
+            {
+              "name": "orderId",
+              "description": "The unique identifier for the Order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/orders/{orderId}/orderItems/{orderItemId}",
+        "definition": {
+          "entityName": "OrderItem",
+          "schema": {
+            "$ref": "#/backend/entities/OrderItem"
+          },
+          "description": "Subcollection for individual items within a specific order. Access is controlled by the parent `Order`'s authorization rules. Includes denormalized `userId` and `shopOwnerId` (from parent Order) for authorization independence to allow access without `get()` calls to the parent order.",
+          "params": [
+            {
+              "name": "orderId",
+              "description": "The unique identifier of the parent Order."
+            },
+            {
+              "name": "orderItemId",
+              "description": "The unique identifier for the OrderItem."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/shops/{shopId}/reviews/{reviewId}",
+        "definition": {
+          "entityName": "ShopReview",
+          "schema": {
+            "$ref": "#/backend/entities/ShopReview"
+          },
+          "description": "Subcollection for user reviews of a specific shop. Publicly readable for all authenticated users. Only the `userId` who authored the review can create, update, or delete it. Includes `userId` and `shopId` for authorization independence.",
+          "params": [
+            {
+              "name": "shopId",
+              "description": "The unique identifier of the Shop being reviewed."
+            },
+            {
+              "name": "reviewId",
+              "description": "The unique identifier for the ShopReview."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "This Firestore structure is designed to support the new shop, product, and order management features, adhering strictly to the core design principles, especially Authorization Independence and QAPs, to ensure security, scalability, and debuggability.Authorization Independence (CRITICAL):To eliminate `get()` calls in security rules and enable atomic operations, key authorization fields are denormalized:*   `Product` documents: The `ownerId` of the parent `Shop` (`shopOwnerId`) is denormalized into each `Product` document. This allows security rules to verify if `request.auth.uid` is the `shopOwnerId` directly when managing products, without needing to `get()` the parent `Shop` document.*   `Order` documents: The `ownerId` of the associated `Shop` (`shopOwnerId`) is denormalized into each `Order` document, alongside the `userId` who placed the order. This enables both the customer (`userId`) and the shop owner (`shopOwnerId`) to access orders without requiring cross-collection `get()` calls.*   `OrderItem` documents: Both the `userId` (customer) and the `shopOwnerId` from the parent `Order` are denormalized into each `OrderItem` document. This allows independent authorization checks for order items by both parties.This denormalization ensures that any security rule can validate access solely based on the fields present within the document being accessed or its direct path, simplifying rules and preventing authorization issues in atomic operations like batch writes or transactions.QAPs (Rules are not Filters):The structure facilitates Queryable Access Patterns (QAPs) by ensuring that collections are designed with a homogeneous security posture and include necessary authorization fields for filtering:*   `/shops`: This is a top-level collection, publicly readable by all authenticated users (potentially filtered by `status: 'Open'` in rules for public visibility). Shop owners can write/update only their `Shop` documents based on the `ownerId` field within the document. This allows efficient listing of available shops.*   `/shops/{shopId}/products`: Products are stored as a subcollection of their respective shops. These are publicly readable for browsing. Shop owners can manage their products based on the denormalized `shopOwnerId` field within each `Product` document. This supports efficient listing of products for a specific shop.*   `/users/{userId}/addresses`: User addresses are stored under a user-specific subcollection, `/users/{userId}/addresses`. Access is strictly path-based, ensuring only `request.auth.uid` can list or manage their own addresses. This guarantees privacy and QAP compliance for personal data.*   `/orders`: This is a top-level collection for all orders. Each `Order` document contains both the `userId` (customer) and the denormalized `shopOwnerId`. Security rules can then enforce `request.auth.uid == resource.data.userId` for customers or `request.auth.uid == resource.data.shopOwnerId` for shop owners. This allows both customer and shop owner clients to efficiently query *their own* orders without rules acting as filters, thus supporting QAPs.*   `/orders/{orderId}/orderItems`: Order items are subcollections of individual orders. Access to these items is implicitly granted if the user has access to the parent `Order`, further supported by the denormalized `userId` and `shopOwnerId` in the `OrderItem` document, enabling clear and efficient access control.*   `/shops/{shopId}/reviews`: Reviews are stored as a subcollection of shops. These are publicly readable. Users can only create, update, or delete reviews where `request.auth.uid == resource.data.userId`. This supports efficient listing of reviews for a given shop and private management by the review author.Structural Segregation & Access Modeling:*   Path-Based Ownership: Private user data like `UserAddress` uses `/users/{userId}/addresses/{addressId}` to ensure strict ownership and simplify security rules.*   Top-Level Collections for Public/Shared Data: `shops` and `orders` are top-level collections because they need to be queried from multiple perspectives (general discovery, user's orders, shop's orders) and often involve cross-cutting concerns. Denormalization within these documents enables independent authorization checks.*   Hierarchical Subcollections: `products` and `reviews` are placed under `shops` to logically group them and provide context-specific listings. `orderItems` are under `orders` for similar reasons.This design minimizes rule complexity, prevents common security pitfalls, and ensures high performance for common access patterns, making the platform both secure and scalable."
+  }
+}

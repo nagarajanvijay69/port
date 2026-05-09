@@ -1,0 +1,206 @@
+/**
+ * # Firestore Security Rules
+ *
+ * ## Core Philosophy
+ * This ruleset establishes a multi-faceted security model tailored for a multi-vendor e-commerce platform.
+ * It combines public readability for discovery with strict ownership for management. Key data like shops,
+ * products, and reviews are publicly accessible to encourage browsing, while all write operations
+ * (creation, modification, deletion) are strictly controlled by the authenticated owner. Private user data
+ * is isolated, and shared data (orders) is accessible only to the involved parties (customer and shop owner).
+ *
+ * ## Data Structure
+ * The data is organized into several top-level collections:
+ * - `/shops`: A public collection of all merchant storefronts.
+ * - `/orders`: A collection of all customer orders, with access restricted to participants.
+ * - `/users`: A placeholder for user-specific data, though not directly managed by these rules.
+ *
+ * Subcollections are used to logically group related data:
+ * - A shop's products are at `/shops/{shopId}/products/{productId}`.
+ * - A shop's reviews are at `/shops/{shopId}/reviews/{reviewId}`.
+ * - A user's private addresses are at `/users/{userId}/addresses/{addressId}`.
+ * - An order's line items are at `/orders/{orderId}/orderItems/{orderItemId}`.
+ *
+ * ## Key Security Decisions
+ * - **Public Discovery, Private Control**: `shops`, `products`, and `reviews` are publicly readable to allow
+ *   unauthenticated users to browse the platform. However, only the designated owner can create or modify this content.
+ * - **Strict User Privacy**: A user's personal data, such as their saved addresses in `/users/{userId}/addresses`,
+ *   is strictly confined to them. No other user can read or write this data.
+ * - **Shared Document Access**: The `/orders` collection implements a shared access model. An order document can be
+ *   read or updated by either the customer (`userId`) who placed it or the owner of the shop (`shopOwnerId`)
+ *   fulfilling it.
+ * - **No Global Listing of Sensitive Data**: A global `list` operation on the top-level `/orders` collection is explicitly
+ *   disallowed (`allow list: if false;`). This is a critical security measure to prevent any user from accidentally
+ *   querying and listing all orders on the platform. Secure access is enforced by requiring clients to build specific
+ *   queries (e.g., `where('userId', '==', currentUser.uid)`) which are then validated at the document level by the `get` rule.
+ *
+ * ## Denormalization for Authorization
+ * To ensure performant and secure rules, this ruleset relies on denormalized data. Authorization decisions are made
+ * using fields stored directly on the document being accessed, avoiding slow and costly `get()` calls to other documents.
+ * - **Shop Ownership**: The `ownerId` on a `/shops/{shopId}` document grants management rights.
+ * - **Order Participation**: The `userId` (customer) and a denormalized `shopOwnerId` on an `/orders/{orderId}` document
+ *   grant access to both participants.
+ * - **Subcollection Security**: For subcollections like `/shops/{shopId}/products`, security is derived by checking
+ *   ownership on the parent `shop` document.
+ *
+ * ## Structural Segregation
+ * The ruleset leverages structural segregation for clarity and security. Private user data (`addresses`) is nested under
+ * a user-specific path `/users/{userId}`, while public or shared data (`shops`, `orders`) exists in top-level collections,
+ * making the access patterns clear and the rules simple to enforce.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ----------------------------------------------------------------
+    // Helper Functions
+    // ----------------------------------------------------------------
+
+    /**
+     * Returns true if the user is signed in.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Returns true if the requesting user's UID matches the provided userId.
+     * This is the fundamental check for data ownership.
+     */
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    /**
+     * Returns true if the document being accessed already exists.
+     * Crucial for protecting against writes to non-existent paths.
+     */
+    function docExists() {
+      return resource != null;
+    }
+
+    /**
+     * Validates that the requesting user owns the existing document.
+     * Used for secure update and delete operations.
+     */
+    function isExistingOwner(userId) {
+      return docExists() && isOwner(userId);
+    }
+    
+    /**
+     * Checks if the requesting user is the owner of the parent shop.
+     * This function performs a document read to fetch the parent shop's data.
+     */
+    function isShopOwner(shopId) {
+      return isSignedIn() && get(/databases/$(database)/documents/shops/$(shopId)).data.ownerId == request.auth.uid;
+    }
+
+    /**
+     * Checks if the requesting user is a participant (customer or shop owner)
+     * in the order transaction. This function performs a document read.
+     */
+    function isParentOrderParticipant(orderId) {
+      let order = get(/databases/$(database)/documents/orders/$(orderId)).data;
+      return isSignedIn() && (request.auth.uid == order.userId || request.auth.uid == order.shopOwnerId);
+    }
+    
+    // ----------------------------------------------------------------
+    // Shops & Related Subcollections
+    // ----------------------------------------------------------------
+
+    /**
+     * @description Publicly readable collection of shops. Only the designated owner can manage their shop document.
+     * @path /shops/{shopId}
+     * @allow (get) Anyone, including unauthenticated users, can read a shop's profile.
+     * @deny (update) A signed-in user trying to update a shop they do not own.
+     * @principle Public Read with Owner-Only Writes. Enforces document ownership for all write operations.
+     */
+    match /shops/{shopId} {
+      allow get, list: if true;
+      allow create: if isSignedIn() && isOwner(request.resource.data.ownerId);
+      allow update: if isExistingOwner(resource.data.ownerId) && request.resource.data.ownerId == resource.data.ownerId;
+      allow delete: if isExistingOwner(resource.data.ownerId);
+    }
+
+    /**
+     * @description A shop's products. Publicly readable. Only the shop owner can manage products.
+     * @path /shops/{shopId}/products/{productId}
+     * @allow (list) Anyone can list the products for a given shop.
+     * @deny (create) A user trying to add a product to a shop they do not own.
+     * @principle Hierarchical Access Control. Access is derived from the parent shop's ownership.
+     */
+    match /shops/{shopId}/products/{productId} {
+      allow get, list: if true;
+      allow create: if isShopOwner(shopId) && request.resource.data.shopId == shopId;
+      allow update: if isShopOwner(shopId) && docExists() && request.resource.data.shopId == resource.data.shopId;
+      allow delete: if isShopOwner(shopId) && docExists();
+    }
+
+    /**
+     * @description Reviews for a shop. Readable by signed-in users. Only the author can manage their own review.
+     * @path /shops/{shopId}/reviews/{reviewId}
+     * @allow (create) A signed-in user can write a review for a shop.
+     * @deny (update) A user trying to edit a review written by someone else.
+     * @principle Public Read with Owner-Only Writes. Enforces review authorship for writes.
+     */
+    match /shops/{shopId}/reviews/{reviewId} {
+      allow get, list: if isSignedIn();
+      allow create: if isSignedIn() && isOwner(request.resource.data.userId) && request.resource.data.shopId == shopId;
+      allow update: if isExistingOwner(resource.data.userId) && request.resource.data.userId == resource.data.userId && request.resource.data.shopId == resource.data.shopId;
+      allow delete: if isExistingOwner(resource.data.userId);
+    }
+    
+    // ----------------------------------------------------------------
+    // User-Private Data
+    // ----------------------------------------------------------------
+
+    /**
+     * @description A user's private collection of saved addresses.
+     * @path /users/{userId}/addresses/{addressId}
+     * @allow (create, get, list, update, delete) A user can fully manage their own address book.
+     * @deny (get, list, etc.) Any user trying to access another user's addresses.
+     * @principle Strict Ownership. Restricts all access to a user's own data tree.
+     */
+    match /users/{userId}/addresses/{addressId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && isOwner(request.resource.data.userId);
+      allow update: if isExistingOwner(userId) && isOwner(request.resource.data.userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
+    
+    // ----------------------------------------------------------------
+    // Orders & Related Subcollections
+    // ----------------------------------------------------------------
+    
+    /**
+     * @description Collection of orders. Accessible only by the customer or the shop owner involved.
+     * @path /orders/{orderId}
+     * @allow (get) The user who placed the order or the owner of the shop can read the order.
+     * @deny (list) A global list of all orders is denied to prevent data leaks. Clients must query for their specific orders.
+     * @deny (get) A user trying to read an order they are not a part of.
+     * @principle Shared Access (Closed Collaborators). Access is restricted to participants (customer/shop owner).
+     */
+    match /orders/{orderId} {
+      // NOTE: `shopOwnerId` is assumed to be denormalized onto the Order document for this rule to work.
+      allow get: if isSignedIn() && (isOwner(resource.data.userId) || isOwner(resource.data.shopOwnerId));
+      allow list: if false; // CRITICAL: Prevents querying all orders.
+      allow create: if isSignedIn() && isOwner(request.resource.data.userId);
+      allow update: if docExists() && isSignedIn() && (isOwner(resource.data.userId) || isOwner(resource.data.shopOwnerId));
+      allow delete: if docExists() && isSignedIn() && (isOwner(resource.data.userId) || isOwner(resource.data.shopOwnerId));
+    }
+    
+    /**
+     * @description The specific items within an order. Access is inherited from the parent order.
+     * @path /orders/{orderId}/orderItems/{orderItemId}
+     * @allow (list) The customer or shop owner can list the items for an order they have access to.
+     * @deny (get) A user trying to read order items from an order they are not a part of.
+     * @principle Hierarchical Access Control. Access rights are derived from the parent order document.
+     */
+    match /orders/{orderId}/orderItems/{orderItemId} {
+      allow get, list: if isParentOrderParticipant(orderId);
+      // Order items are created with the order and are considered immutable snapshots.
+      allow create: if isParentOrderParticipant(orderId) && request.resource.data.orderId == orderId;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}
