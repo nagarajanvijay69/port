@@ -1,5 +1,8 @@
 import { redirect } from 'next/navigation'
 
 export default function RootPage() {
-  redirect('/chats')
+  // redirect('/chats')
+  return <>
+    <p>hello</p>
+  </>
 }
