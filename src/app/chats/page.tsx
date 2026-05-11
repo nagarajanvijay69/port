@@ -75,7 +75,7 @@ export default function ChatsPage() {
       {
         <div className={`${!isList && 'hidden md:block'}  col-span-3 flex flex-col
          h-[100dvh] bg-background md:pl-24 border-r`}>
-          <header className="py-4 px-2  border-b sticky top-0 bg-background z-10">
+          <header className="pt-3 px-2  border-b sticky top-0 bg-background z-10">
             {
               selectedChat ?
                 <div className='flex justify-between items-center h-12'>
@@ -134,8 +134,8 @@ export default function ChatsPage() {
                   </div>
                 </div>
             }
-            <h1 className="text-3xl font-bold mt-4">Chats</h1>
-            <div className="relative mt-4">
+            <h1 className="text-3xl font-bold mt-2">Chats</h1>
+            <div className="relative mt-2">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input placeholder="Search people." className="pl-10 bg-muted border-none rounded-full" />
             </div>
