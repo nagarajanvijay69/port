@@ -111,7 +111,7 @@ export default function ChatsPage() {
                   </div>
                 </div>
                 :
-                <div className="flex justify-between items-center h-12">
+                <div className="flex justify-between items-center h-8">
                   <Logo />
                   <div className="flex items-center gap-4">
                     <Link href="/contacts">
@@ -135,11 +135,11 @@ export default function ChatsPage() {
                 </div>
             }
             <h1 className="text-3xl font-bold mt-2">Chats</h1>
-            <div className="relative mt-2">
+            <div className="relative mt-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input placeholder="Search people." className="pl-10 bg-muted border-none rounded-full" />
             </div>
-            <div className="flex gap-2 mt-4 overflow-x-auto  pb-2 -mx-4 px-4">
+            <div className="flex gap-2 mt-2 overflow-x-auto  pb-2 -mx-4 px-4">
               {filterChips.map(chip => (
                 <Button key={chip} variant={chip === 'All' ? 'default' : 'outline'} className="rounded-full flex-shrink-0">
                   {chip}
